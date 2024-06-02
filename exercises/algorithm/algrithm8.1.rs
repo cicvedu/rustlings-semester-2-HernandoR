@@ -1,53 +1,3 @@
-/*
-	queue
-	This question requires you to use queues to implement the functionality of the stac
-*/
-
-
-use std::collections::VecDeque;
-
-
-pub struct MyStack<T>
-{
-	//TODO
-	q1:VecDeque<T>,
-	q2:VecDeque<T>,
-}
-impl<T> MyStack<T> {
-    pub fn new() -> Self {
-        Self {
-			//TODO
-			q1:Default::default(),
-			q2:Default::default(),
-        }
-    }
-    pub fn push(&mut self, elem: T) {
-        //TODO
-        self.q1.push_back(elem);
-    }
-    pub fn pop(&mut self) -> Result<T,& str> {
-        //TODO
-		// Err("Stack is empty")
-        if self.q1.is_empty(){
-            return Err("Stack is empty")
-        }
-        while self.q1.len() > 1 {
-            if let Some(item) = self.q1.pop_front() {
-                self.q2.push_back(item);
-            }
-        }
-        let item = self.q1.pop_front().unwrap();
-        std::mem::swap(&mut self.q1, &mut self.q2);
-        Ok(item)
-    }
-
-    pub fn is_empty(&self) -> bool {
-		//TODO
-        return self.q1.is_empty();
-    }
-
-}
-
 #[derive(Debug)]
 pub struct Queue<T> {
     elements: Vec<T>,
@@ -116,8 +66,7 @@ impl<T> myStack<T> {
         self.q1.enqueue(elem);
     }
     pub fn pop(&mut self) -> Result<T, &str> {
-        //TODO
-		// Err("Stack is empty")
+
         if self.q1.is_empty(){
             return Err("Stack is empty")
         }
@@ -125,9 +74,9 @@ impl<T> myStack<T> {
             let item= self.q1.dequeue().unwrap();
             self.q2.enqueue(item);
         }
-        let item = self.q1.dequeue().unwrap();
+        let item = self.q1.dequeue();
         std::mem::swap(&mut self.q1, &mut self.q2);
-        Ok(item)
+        item
     }
 
     pub fn is_empty(&self) -> bool {
